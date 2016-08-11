@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CollectionViewTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="W1k-SF-PEv">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gBY-o3-k3F" userLabel="Top CV">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="290"/>
+                                        <color key="backgroundColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CHM-YM-VcX">
+                                            <size key="itemSize" width="180" height="150"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CellReuseIdentifier" id="mUZ-0a-72o" customClass="Cell" customModule="CollectionViewTest" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="180" height="150"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="150"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="qma-Gn-tkg" id="lDe-hb-j0c"/>
+                                            <outlet property="delegate" destination="Hpz-fj-LfA" id="qS0-Mb-x6u"/>
+                                        </connections>
+                                    </collectionView>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="g4d-C7-aF8" userLabel="Bottom CV">
+                                        <rect key="frame" x="0.0" y="290" width="600" height="290"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ehh-WV-4JE">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CellReuseIdentifier" id="Q9N-LL-02z" customClass="Cell" customModule="CollectionViewTest" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="qma-Gn-tkg" id="Av8-Y0-7Yv"/>
+                                            <outlet property="delegate" destination="qQi-SI-WEU" id="Fjd-ws-Bx0"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="g4d-C7-aF8" firstAttribute="leading" secondItem="W1k-SF-PEv" secondAttribute="leading" id="5cB-E6-MJh"/>
+                                    <constraint firstItem="g4d-C7-aF8" firstAttribute="top" secondItem="gBY-o3-k3F" secondAttribute="bottom" id="G6Y-cZ-L6f"/>
+                                    <constraint firstItem="gBY-o3-k3F" firstAttribute="bottom" secondItem="g4d-C7-aF8" secondAttribute="bottom" id="RH2-ZY-8kM"/>
+                                    <constraint firstAttribute="trailing" secondItem="g4d-C7-aF8" secondAttribute="trailing" id="YYh-M1-I7l"/>
+                                    <constraint firstAttribute="bottom" secondItem="g4d-C7-aF8" secondAttribute="bottom" id="vf3-02-V3A"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="RH2-ZY-8kM"/>
+                                        <exclude reference="5cB-E6-MJh"/>
+                                        <exclude reference="G6Y-cZ-L6f"/>
+                                        <exclude reference="YYh-M1-I7l"/>
+                                        <exclude reference="vf3-02-V3A"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact" axis="horizontal"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="W1k-SF-PEv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9Xc-hw-pHf"/>
+                            <constraint firstItem="W1k-SF-PEv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Cd0-fu-LKH"/>
+                            <constraint firstAttribute="trailing" secondItem="W1k-SF-PEv" secondAttribute="trailing" id="ZtT-Qj-OKI"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="W1k-SF-PEv" secondAttribute="bottom" id="dBb-Yb-hAZ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <customObject id="qma-Gn-tkg" customClass="SimpleDataSource" customModule="CollectionViewTest" customModuleProvider="target"/>
+                <customObject id="Hpz-fj-LfA" userLabel="Top Delegate" customClass="SimpleDelegate" customModule="CollectionViewTest" customModuleProvider="target"/>
+                <customObject id="qQi-SI-WEU" userLabel="Bottom Delegate" customClass="SimpleDelegate" customModule="CollectionViewTest" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="375" y="337"/>
+        </scene>
+    </scenes>
+</document>
