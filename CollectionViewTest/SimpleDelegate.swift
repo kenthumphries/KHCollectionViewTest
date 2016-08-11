@@ -9,27 +9,6 @@
 import Foundation
 import UIKit
 
-extension UICollectionView {
-    
-    func sortedIndexPathsForVisibleItems() -> [NSIndexPath] {
-        return self.indexPathsForVisibleItems().sort({ (first, second) -> Bool in
-            return first.section < second.section || (first.section == second.section && first.item <= second.item)
-        })
-    }
-}
-
-extension UICollectionViewFlowLayout {
-    
-    func frameForItemAtIndexPath(indexPath: NSIndexPath) -> CGRect? {
-        return self.layoutAttributesForItemAtIndexPath(indexPath)?.frame
-    }
-    
-    func centerForItemAtIndexPath(indexPath: NSIndexPath) -> CGPoint? {
-        return self.layoutAttributesForItemAtIndexPath(indexPath)?.center
-    }
-
-}
-
 func >(lhs: CGPoint, rhs: CGPoint) -> Bool {
     return lhs.x > rhs.x && lhs.y > rhs.y
 }
