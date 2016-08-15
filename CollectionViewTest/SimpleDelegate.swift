@@ -31,7 +31,10 @@ class SimpleDelegate: NSObject, UICollectionViewDelegate {
 
         self.didSelectBlock(collectionViewFlowLayout: currentLayout, indexPath: indexPath)
     }
-    
+}
+
+extension SimpleDelegate {
+
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             self.scrollViewDidEndScrolling(scrollView)
@@ -59,34 +62,18 @@ class SimpleDelegate: NSObject, UICollectionViewDelegate {
         }
     }
 
+}
+
+extension SimpleDelegate {
+
     func collectionView(collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
         
         guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return proposedContentOffset
         }
         
-        var contentOffset = proposedContentOffset
-        
-        // Determine whether to focus on selectedIndexPath or scrolledIndexPath
-        let indexPathToFocusOn: NSIndexPath
-        if collectionView.indexPathsForVisibleItems().contains(selectedIndexPath) {
-            indexPathToFocusOn = selectedIndexPath
-        } else {
-            indexPathToFocusOn = focussedIndexPath
-        }
-        
-        if let frame = flowLayout.frameForItemAtIndexPath(indexPathToFocusOn) where frame != CGRectZero {
-            let originX = max(0, frame.origin.x - flowLayout.minimumInteritemSpacing)
-            let originY = max(0, frame.origin.y - flowLayout.minimumInteritemSpacing)
-            contentOffset = CGPointMake(originX, originY)
-        }
-        
-        return contentOffset
+        return self.targetContentOffsetForProposedContentOffset(proposedContentOffset, flowLayout: flowLayout)
     }
-
-}
-
-extension SimpleDelegate {
     
     func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, flowLayout: UICollectionViewFlowLayout) -> CGPoint {
         var contentOffset = proposedContentOffset
@@ -96,7 +83,6 @@ extension SimpleDelegate {
         if let visibleIndexPaths = flowLayout.collectionView?.indexPathsForVisibleItems() where visibleIndexPaths.contains(selectedIndexPath) {
             indexPathToFocusOn = selectedIndexPath
         } else {
-            flowLayout.collectionView?.selected
             indexPathToFocusOn = focussedIndexPath
         }
         
