@@ -82,39 +82,3 @@ extension UICollectionViewDelegateFlowLayoutFocusing {
         return CGPointMake(originX, originY)
     }
 }
-
-/* Extension of UICollectionViewDelegate protocol does not work in Swift 2.2 :( */
-
-//// MARK: Call UICollectionViewDelegateFlowLayoutFocusing methods by default on scrolling or external contentOffset change
-//extension UICollectionViewDelegate where Self: UICollectionViewDelegateFlowLayoutFocusing{
-//    
-//    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        
-//        guard let collectionView = scrollView as? UICollectionView else {
-//            return
-//        }
-//        
-//        if !decelerate {
-//            self.collectionViewDidEndScrolling(collectionView)
-//        }
-//    }
-//    
-//    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-//        
-//        guard let collectionView = scrollView as? UICollectionView else {
-//            return
-//        }
-//        
-//        self.collectionViewDidEndScrolling(collectionView)
-//    }
-//    
-//    func collectionView(collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
-//        
-//        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
-//            focusedPoint = self.focussedContentOffset(flowLayout: flowLayout) else {
-//                return proposedContentOffset
-//        }
-//        
-//        return focusedPoint
-//    }
-//}
