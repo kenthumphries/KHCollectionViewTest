@@ -14,12 +14,22 @@ func >(lhs: CGPoint, rhs: CGPoint) -> Bool {
 }
 
 class SimpleDelegate: NSObject, UICollectionViewDelegate {
+    
+    var didSelectBlock : (collectionViewFlowLayout: UICollectionViewFlowLayout, indexPath: NSIndexPath) -> () = { (layout, indexPath) in
+        // Do nothing by default
+    }
 
     var selectedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
     var focussedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selectedIndexPath = indexPath
+        
+        guard let currentLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+
+        self.didSelectBlock(collectionViewFlowLayout: currentLayout, indexPath: indexPath)
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -43,7 +53,6 @@ class SimpleDelegate: NSObject, UICollectionViewDelegate {
         
         for indexPath in visibleIndexPaths {
             if let center = flowLayout.centerForItemAtIndexPath(indexPath) where center > collectionView.contentOffset {
-                print("FocussedIndexPath = \(indexPath)")
                 focussedIndexPath = indexPath
                 break;
             }
@@ -56,8 +65,6 @@ class SimpleDelegate: NSObject, UICollectionViewDelegate {
             return proposedContentOffset
         }
         
-        let collectionViewName = collectionView.tag == 0 ? "TopCV" : "BottomCV"
-        print(collectionViewName + " Proposed Content Offset: \(NSStringFromCGPoint(proposedContentOffset))")
         var contentOffset = proposedContentOffset
         
         // Determine whether to focus on selectedIndexPath or scrolledIndexPath
@@ -74,10 +81,31 @@ class SimpleDelegate: NSObject, UICollectionViewDelegate {
             contentOffset = CGPointMake(originX, originY)
         }
         
-        print(collectionViewName + " Calculated Content Offset: \(NSStringFromCGPoint(contentOffset))")
-        print(collectionViewName + " Frame: \(NSStringFromCGRect(collectionView.frame))\n")
-        
         return contentOffset
     }
 
+}
+
+extension SimpleDelegate {
+    
+    func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, flowLayout: UICollectionViewFlowLayout) -> CGPoint {
+        var contentOffset = proposedContentOffset
+        
+        // Determine whether to focus on selectedIndexPath or scrolledIndexPath
+        let indexPathToFocusOn: NSIndexPath
+        if let visibleIndexPaths = flowLayout.collectionView?.indexPathsForVisibleItems() where visibleIndexPaths.contains(selectedIndexPath) {
+            indexPathToFocusOn = selectedIndexPath
+        } else {
+            flowLayout.collectionView?.selected
+            indexPathToFocusOn = focussedIndexPath
+        }
+        
+        if let frame = flowLayout.frameForItemAtIndexPath(indexPathToFocusOn) where frame != CGRectZero {
+            let originX = max(0, frame.origin.x - flowLayout.minimumInteritemSpacing)
+            let originY = max(0, frame.origin.y - flowLayout.minimumInteritemSpacing)
+            contentOffset = CGPointMake(originX, originY)
+        }
+        
+        return contentOffset
+    }
 }

@@ -23,18 +23,18 @@
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gBY-o3-k3F" userLabel="Top CV">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="290"/>
                                         <color key="backgroundColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CHM-YM-VcX">
-                                            <size key="itemSize" width="180" height="150"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dEb-e5-XPt">
+                                            <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CellReuseIdentifier" id="mUZ-0a-72o" customClass="Cell" customModule="CollectionViewTest" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="180" height="150"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="150"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -98,6 +98,10 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="W1k-SF-PEv" secondAttribute="bottom" id="dBb-Yb-hAZ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bottomCollectionView" destination="g4d-C7-aF8" id="XKM-wA-ehT"/>
+                        <outlet property="topCollectionView" destination="gBY-o3-k3F" id="8Z9-v1-hHB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <customObject id="qma-Gn-tkg" customClass="SimpleDataSource" customModule="CollectionViewTest" customModuleProvider="target"/>
