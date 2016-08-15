@@ -18,8 +18,8 @@ public protocol UICollectionViewDelegateFlowLayoutFocusing: UIScrollViewDelegate
     var focusedIndexPath: NSIndexPath { get set }
     
     // Must be called by collectionView
-    func collectionViewDidEndScrolling(collectionView: UICollectionView)
-    func focussedContentOffset(flowLayout flowLayout: UICollectionViewFlowLayout) -> CGPoint?
+    func collectionViewDidEndScrolling(scrollView: UIScrollView)
+    func focussedContentOffset(collectionView collectionView: UICollectionView) -> CGPoint?
     // Customisation point
     func indexPathToFocusOn(collectionView collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> NSIndexPath?
 }
@@ -27,9 +27,10 @@ public protocol UICollectionViewDelegateFlowLayoutFocusing: UIScrollViewDelegate
 // MARK: Default implementations
 extension UICollectionViewDelegateFlowLayoutFocusing {
     
-    func collectionViewDidEndScrolling(collectionView: UICollectionView) {
+    func collectionViewDidEndScrolling(scrollView: UIScrollView) {
         
-        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+        guard let collectionView = scrollView as? UICollectionView,
+            let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
         
@@ -61,9 +62,10 @@ extension UICollectionViewDelegateFlowLayoutFocusing {
         return indexPathToFocusOn
     }
     
-    func focussedContentOffset(flowLayout flowLayout: UICollectionViewFlowLayout) -> CGPoint? {
+    func focussedContentOffset(collectionView collectionView: UICollectionView) -> CGPoint? {
         
-        guard let frame = flowLayout.frameForItemAtIndexPath(focusedIndexPath) where frame != CGRectZero else {
+        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
+            let frame = flowLayout.frameForItemAtIndexPath(focusedIndexPath) where frame != CGRectZero else {
             return nil
         }
         
@@ -80,28 +82,19 @@ extension UICollectionViewDelegate where Self: UICollectionViewDelegateFlowLayou
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
-        guard let collectionView = scrollView as? UICollectionView else {
-            return
-        }
-        
         if !decelerate {
-            self.collectionViewDidEndScrolling(collectionView)
+            self.collectionViewDidEndScrolling(scrollView)
         }
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         
-        guard let collectionView = scrollView as? UICollectionView else {
-            return
-        }
-        
-        self.collectionViewDidEndScrolling(collectionView)
+        self.collectionViewDidEndScrolling(scrollView)
     }
     
     func collectionView(collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
         
-        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
-            focusedPoint = self.focussedContentOffset(flowLayout: flowLayout) else {
+        guard let focusedPoint = self.focussedContentOffset(collectionView: collectionView) else {
                 return proposedContentOffset
         }
         
