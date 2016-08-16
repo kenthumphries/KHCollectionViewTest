@@ -11,7 +11,7 @@ import UIKit
 
 class FocusingDelegate: NSObject, UICollectionViewDelegateFlowLayoutFocusing // Ensure that the CollectionView is Focusing
 {
-    var focusedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+    var lastViewedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
 }
 
 // MARK: Call UICollectionViewDelegateFlowLayoutFocusing methods on scrolling or external contentOffset change

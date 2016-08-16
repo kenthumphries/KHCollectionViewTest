@@ -15,5 +15,17 @@ extension UICollectionView {
             return first.section < second.section || (first.section == second.section && first.item <= second.item)
         })
     }
+    
+    func firstVisibleSelectedIndexPath() -> NSIndexPath? {
+
+        let visibleIndexPaths = self.sortedIndexPathsForVisibleItems()
+        
+        if let selectedIndexPaths = self.indexPathsForSelectedItems(),
+            visibleSelectedIndexPath = NSArray(array: visibleIndexPaths).firstObjectCommonWithArray(selectedIndexPaths) as? NSIndexPath {
+            // One of the selected cels is visible
+            return visibleSelectedIndexPath
+        }
+        return nil
+    }
 }
 

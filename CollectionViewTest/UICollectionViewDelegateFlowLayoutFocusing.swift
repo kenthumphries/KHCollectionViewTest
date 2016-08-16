@@ -15,13 +15,15 @@ func >(lhs: CGPoint, rhs: CGPoint) -> Bool {
 
 public protocol UICollectionViewDelegateFlowLayoutFocusing: UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    var focusedIndexPath: NSIndexPath { get set }
+    var lastViewedIndexPath: NSIndexPath { get set }
     
     // Must be called by collectionView
     func collectionViewDidEndScrolling(scrollView: UIScrollView)
     func focussedContentOffset(collectionView: UICollectionView, proposedContentOffset: CGPoint) -> CGPoint
-    // Customisation point
-    func indexPathToFocusOn(collectionView collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> NSIndexPath?
+    
+    // Customisation points
+    func viewedIndexPath(collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> NSIndexPath
+    func focusedIndexPath(collectionView: UICollectionView) -> NSIndexPath
 }
 
 // MARK: Default implementations
@@ -29,56 +31,54 @@ extension UICollectionViewDelegateFlowLayoutFocusing {
     
     func collectionViewDidEndScrolling(scrollView: UIScrollView) {
         
-        guard let collectionView = scrollView as? UICollectionView,
-            flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        
-        if let indexPathToFocusOn = self.indexPathToFocusOn(collectionView: collectionView, flowLayout: flowLayout) {
-            self.focusedIndexPath = indexPathToFocusOn
+        if let collectionView = scrollView as? UICollectionView,
+            flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            self.lastViewedIndexPath = self.viewedIndexPath(collectionView, flowLayout: flowLayout)
         }
     }
     
-    func indexPathToFocusOn(collectionView collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> NSIndexPath? {
+    func viewedIndexPath(collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> NSIndexPath {
         
-        var indexPathToFocusOn = self.focusedIndexPath // If a new focus can't be found, default to last focus
-        
+        // Find the first cell that's at least half visible
         let visibleIndexPaths = collectionView.sortedIndexPathsForVisibleItems()
-        
-        if let selectedIndexPaths = collectionView.indexPathsForSelectedItems(),
-            visibleSelectedIndexPath = NSArray(array: visibleIndexPaths).firstObjectCommonWithArray(selectedIndexPaths) as? NSIndexPath {
-            // One of the selected cels is visible, so use it for the focus
-            indexPathToFocusOn = visibleSelectedIndexPath
-        } else {
-            // No selected visible cells, find the first cell that's at least half visible
-            for indexPath in visibleIndexPaths {
-                if let center = flowLayout.centerForItemAtIndexPath(indexPath) where center > collectionView.contentOffset {
-                    indexPathToFocusOn = indexPath
-                    break;
-                }
+        for indexPath in visibleIndexPaths {
+            if let center = flowLayout.centerForItemAtIndexPath(indexPath) where center > collectionView.contentOffset {
+                return indexPath
             }
         }
+        return lastViewedIndexPath
+    }
+    
+    func focusedIndexPath(collectionView: UICollectionView) -> NSIndexPath {
+        var focusedIndexPath = self.lastViewedIndexPath
         
-        return indexPathToFocusOn
+        if let firstVisibleSelectedIndexPath = collectionView.firstVisibleSelectedIndexPath() {
+            // One of the selected cels is visible, so use it for the focus instead
+            focusedIndexPath = firstVisibleSelectedIndexPath
+        }
+        return focusedIndexPath
     }
     
     func focussedContentOffset(collectionView: UICollectionView, proposedContentOffset: CGPoint) -> CGPoint {
         guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
-            focusedPoint = self.focussedContentOffset(flowLayout: flowLayout) else {
+            focusedPoint = self.contentOffsetToFocusOn(collectionView, flowLayout: flowLayout) else {
                 return proposedContentOffset
         }
         
         return focusedPoint
     }
     
-    func focussedContentOffset(flowLayout flowLayout: UICollectionViewFlowLayout) -> CGPoint? {
+    func contentOffsetToFocusOn(collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> CGPoint? {
+        
+        let focusedIndexPath = self.focusedIndexPath(collectionView)
         
         guard let frame = flowLayout.frameForItemAtIndexPath(focusedIndexPath) where frame != CGRectZero else {
             return nil
         }
         
-        let originX = max(0, frame.origin.x - flowLayout.minimumInteritemSpacing)
-        let originY = max(0, frame.origin.y - flowLayout.minimumInteritemSpacing)
+        let spacing = flowLayout.minimumInteritemSpacing * 0.5
+        let originX = max(0, frame.origin.x - spacing)
+        let originY = max(0, frame.origin.y - spacing)
         return CGPointMake(originX, originY)
     }
 }
