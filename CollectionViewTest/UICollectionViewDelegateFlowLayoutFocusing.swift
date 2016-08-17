@@ -19,7 +19,7 @@ public protocol UICollectionViewDelegateFlowLayoutFocusing: UIScrollViewDelegate
     
     // Must be called by collectionView
     func collectionViewDidEndScrolling(scrollView: UIScrollView)
-    func focussedContentOffset(collectionView: UICollectionView, proposedContentOffset: CGPoint) -> CGPoint
+    func targetContentOffset(collectionView: UICollectionView, proposedContentOffset: CGPoint) -> CGPoint
     
     // Customisation points
     func viewedIndexPath(collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> NSIndexPath
@@ -59,16 +59,16 @@ extension UICollectionViewDelegateFlowLayoutFocusing {
         return focusedIndexPath
     }
     
-    func focussedContentOffset(collectionView: UICollectionView, proposedContentOffset: CGPoint) -> CGPoint {
+    func targetContentOffset(collectionView: UICollectionView, proposedContentOffset: CGPoint) -> CGPoint {
         guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
-            focusedPoint = self.contentOffsetToFocusOn(collectionView, flowLayout: flowLayout) else {
+            focusedContentOffset = self.focussedContentOffset(collectionView, flowLayout: flowLayout) else {
                 return proposedContentOffset
         }
         
-        return focusedPoint
+        return focusedContentOffset
     }
     
-    func contentOffsetToFocusOn(collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> CGPoint? {
+    func focussedContentOffset(collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> CGPoint? {
         
         let focusedIndexPath = self.focusedIndexPath(collectionView)
         

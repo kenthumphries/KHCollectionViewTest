@@ -28,6 +28,6 @@ extension FocusingDelegate {
     }
     
     func collectionView(collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
-        return self.focussedContentOffset(collectionView, proposedContentOffset: proposedContentOffset)
+        return self.targetContentOffset(collectionView, proposedContentOffset: proposedContentOffset)
     }
 }
