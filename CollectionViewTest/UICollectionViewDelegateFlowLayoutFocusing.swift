@@ -76,7 +76,7 @@ extension UICollectionViewDelegateFlowLayoutFocusing {
             return nil
         }
         
-        let spacing = flowLayout.minimumInteritemSpacing * 0.5
+        let spacing = flowLayout.minimumLineSpacing * 0.5
         let originX = max(0, frame.origin.x - spacing)
         let originY = max(0, frame.origin.y - spacing)
         return CGPointMake(originX, originY)

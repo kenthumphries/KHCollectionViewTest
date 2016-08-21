@@ -30,9 +30,9 @@ class SimpleDataSource: NSObject, UICollectionViewDataSource {
         cell.title.sizeToFit()
         
         if (collectionView.tag == 0) {
-            cell.contentView.backgroundColor = UIColor.random(red: 1.00) // Make random self color, but red-ish
+            cell.contentView.backgroundColor = UIColor.random(red: 1.00) // Make random cell color, but red-ish
         } else {
-            cell.contentView.backgroundColor = UIColor.random(green: 1.00) // Make random self color, but green-ish
+            cell.contentView.backgroundColor = UIColor.random(green: 1.00) // Make random cell color, but green-ish
         }
         
         let totalItems = collectionView.numberOfItemsInSection(indexPath.section)

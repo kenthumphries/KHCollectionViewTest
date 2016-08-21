@@ -14,27 +14,41 @@ class ViewController: UIViewController {
 
     @IBOutlet var bottomCollectionView: UICollectionView!
     
-    let singleFlowLayout = SingleFlowLayout()
-    var nextFlowLayout : UICollectionViewLayout?
+    var nextTopFlowLayout : UICollectionViewLayout?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
-        nextFlowLayout = singleFlowLayout
-        
-        if let topDelegate = topCollectionView.delegate as? SimpleDelegate {
-            topDelegate.didSelectBlock = { (layout, indexPath) in
-                
-                let previousFlowLayout = self.topCollectionView.collectionViewLayout
-                UIView.animateWithDuration(0.3, animations: {
-                    // Toggle between flow layouts
-                    self.topCollectionView.collectionViewLayout = self.nextFlowLayout!
-                })
-                self.nextFlowLayout = previousFlowLayout
-                
+        if nextTopFlowLayout == nil {
+            nextTopFlowLayout = singleFlowLayout(topCollectionView)
+            
+            if let topDelegate = topCollectionView.delegate as? SimpleDelegate {
+                topDelegate.didSelectBlock = { (layout, indexPath) in
+
+                    self.topCollectionView.collectionViewLayout.invalidateLayout()
+                    
+                    let previousFlowLayout = self.topCollectionView.collectionViewLayout
+                    
+                    self.topCollectionView.setCollectionViewLayout(self.nextTopFlowLayout!, animated: true)
+                    self.nextTopFlowLayout = previousFlowLayout
+                }
             }
         }
+    }
+    
+    func singleFlowLayout(collectionView: UICollectionView) -> UICollectionViewFlowLayout {
+        let padding : CGFloat = 10.0
         
+        let layout = UICollectionViewFlowLayout()
+        
+        let itemWidth = collectionView.frame.size.width - (2 * padding)
+        let itemHeight = collectionView.frame.size.height - (2 * padding)
+        
+        layout.itemSize = CGSizeMake(itemWidth, itemHeight)
+        layout.minimumInteritemSpacing = padding * 2
+        layout.minimumLineSpacing = padding * 2
+        
+        return layout
     }
 
 }

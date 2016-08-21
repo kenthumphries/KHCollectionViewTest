@@ -14,7 +14,7 @@ class FocusingDelegate: NSObject, UICollectionViewDelegateFlowLayoutFocusing // 
     var lastViewedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
 }
 
-// MARK: Call UICollectionViewDelegateFlowLayoutFocusing methods on scrolling or external contentOffset change
+// MARK: Call UICollectionViewDelegateFlowLayoutFocusing methods on scrolling and external contentOffset change
 extension FocusingDelegate {
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
