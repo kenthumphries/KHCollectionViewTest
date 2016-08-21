@@ -19,6 +19,7 @@
 		37493DDE1D544D79008AFC41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37493DDD1D544D79008AFC41 /* Assets.xcassets */; };
 		37493DE11D544D79008AFC41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37493DDF1D544D79008AFC41 /* LaunchScreen.storyboard */; };
 		37493DE91D559604008AFC41 /* SimpleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37493DE81D559604008AFC41 /* SimpleDataSource.swift */; };
+		3767ED571D696B1E00FC0EF1 /* CGRect+FactorSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3767ED561D696B1E00FC0EF1 /* CGRect+FactorSizes.swift */; };
 		37CA89B71D5B388E005B00CE /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA89B61D5B388E005B00CE /* Cell.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		37493DE01D544D79008AFC41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37493DE21D544D79008AFC41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		37493DE81D559604008AFC41 /* SimpleDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleDataSource.swift; sourceTree = "<group>"; };
+		3767ED561D696B1E00FC0EF1 /* CGRect+FactorSizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+FactorSizes.swift"; sourceTree = "<group>"; };
 		37CA89B61D5B388E005B00CE /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,6 +59,7 @@
 				37463F701D5CB38C006D2CD2 /* UICollectionViewFlowLayout+ConvenienceAttributes.swift */,
 				37463F6E1D5CB34F006D2CD2 /* UICollectionView+IndexPaths.swift */,
 				37463F6C1D5CB315006D2CD2 /* UIColor+Random.swift */,
+				3767ED561D696B1E00FC0EF1 /* CGRect+FactorSizes.swift */,
 			);
 			name = UIKitExtensions;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37493DE91D559604008AFC41 /* SimpleDataSource.swift in Sources */,
+				3767ED571D696B1E00FC0EF1 /* CGRect+FactorSizes.swift in Sources */,
 				37CA89B71D5B388E005B00CE /* Cell.swift in Sources */,
 				37463F691D5B3CEA006D2CD2 /* SimpleDelegate.swift in Sources */,
 				37463F711D5CB38C006D2CD2 /* UICollectionViewFlowLayout+ConvenienceAttributes.swift in Sources */,

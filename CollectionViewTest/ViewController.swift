@@ -16,6 +16,17 @@ class ViewController: UIViewController {
     
     var nextTopFlowLayout : UICollectionViewLayout?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Need to manually set frames of collectionViews
+        topCollectionView.translatesAutoresizingMaskIntoConstraints = true
+        topCollectionView.frame = self.view.frame.rect(heightMultipliedByFactor: 0.5)
+        
+        bottomCollectionView.translatesAutoresizingMaskIntoConstraints = true
+        bottomCollectionView.frame = self.view.frame.rect(heightMultipliedByFactor: 0.5, y:topCollectionView.frame.size.height)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -50,6 +61,24 @@ class ViewController: UIViewController {
         
         return layout
     }
-
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        let isPortrait = size.height > size.width
+        let origin = self.view.frame.origin
+        let newFrame = CGRectMake(origin.x, origin.y, size.width, size.height)
+        
+        coordinator.animateAlongsideTransition({ context in
+            
+            self.topCollectionView.frame = isPortrait
+                ? newFrame.rect(heightMultipliedByFactor: 0.5)
+                : newFrame.rect(widthMultipliedByFactor: 0.5)
+            
+            self.bottomCollectionView.frame = isPortrait
+                ? self.view.frame.rect(heightMultipliedByFactor: 0.5, y:self.topCollectionView.frame.size.height)
+                : self.view.frame.rect(widthMultipliedByFactor: 0.5, x:self.topCollectionView.frame.size.width)
+            
+        }, completion: nil)
+    }
 }
 
