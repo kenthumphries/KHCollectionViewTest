@@ -186,12 +186,15 @@
                             <constraint firstItem="yCk-f4-cVB" firstAttribute="leading" secondItem="L3H-LV-afO" secondAttribute="leadingMargin" placeholder="YES" id="tOl-W0-pJC"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="hAN-Bo-QdY"/>
                     <connections>
                         <outlet property="bottomCollectionView" destination="meJ-gF-Q7w" id="5f9-gt-Rgo"/>
                         <outlet property="topCollectionView" destination="yCk-f4-cVB" id="M9u-iS-Yug"/>
+                        <segue destination="B9t-eI-SZT" kind="unwind" identifier="Unwind" unwindAction="unwindToViewController:" id="4c7-Jc-axP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gqX-lm-T9R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="B9t-eI-SZT" userLabel="Exit" sceneMemberID="exit"/>
                 <customObject id="Gx5-kF-BFa" customClass="SimpleDataSource" customModule="CollectionViewTest" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="823" y="206"/>

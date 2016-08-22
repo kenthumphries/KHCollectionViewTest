@@ -20,10 +20,8 @@ class ViewController: UIViewController {
     
     var topCollectionViewDidSelectBlock: DidSelectBlock {
         return { (layout, indexPath) in
-            
-            if let viewController = self.storyboard?.instantiateViewControllerWithIdentifier("OtherViewController") {
-                self.navigationController?.pushViewController(viewController, animated: true)
-            }
+
+            self.performSegueWithIdentifier(self.segueIdentifier, sender: self)
         }
     }
 
@@ -88,5 +86,9 @@ class ViewController: UIViewController {
             : frame.rect(widthMultipliedByFactor: self.bottomCollectionViewFactor, x:top.size.width)
         
         return (top, bottom)
+    }
+    
+    @IBAction func unwindToViewController(segue:UIStoryboardSegue) {
+        
     }
 }

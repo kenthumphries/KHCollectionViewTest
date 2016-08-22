@@ -15,7 +15,7 @@ class OtherViewController: ViewController {
     
     override var topCollectionViewDidSelectBlock: DidSelectBlock {
         return { (layout, indexPath) in
-            self.navigationController!.dismissViewControllerAnimated(true,completion: nil)
+            self.performSegueWithIdentifier("Unwind", sender: nil)
         }
     }
 
