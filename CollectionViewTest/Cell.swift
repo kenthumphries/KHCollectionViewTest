@@ -31,10 +31,12 @@ class Cell : UICollectionViewCell {
         self.contentView.addSubview(title)
 
         self.title.translatesAutoresizingMaskIntoConstraints = false
-        let centerXConstraint = self.contentView.centerXAnchor.constraintEqualToAnchor(title.centerXAnchor)
-        let centerYConstraint = self.contentView.centerXAnchor.constraintEqualToAnchor(title.centerYAnchor)
+        self.title.textAlignment = .Center
+        let centerXConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[title]|", options: .AlignAllCenterX, metrics: nil, views: ["title":self.title])
+        let centerYConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[title]|", options: .AlignAllCenterY, metrics: nil, views: ["title":self.title])
         
-        self.contentView.addConstraints([centerXConstraint, centerYConstraint])
+        self.contentView.addConstraints(centerXConstraints)
+        self.contentView.addConstraints(centerYConstraints)
     }
     
     

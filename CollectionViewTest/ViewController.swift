@@ -11,74 +11,82 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet var topCollectionView: UICollectionView!
-
     @IBOutlet var bottomCollectionView: UICollectionView!
     
-    var nextTopFlowLayout : UICollectionViewLayout?
+    var topCollectionViewFactor: CGFloat { return 0.5 }
+    var bottomCollectionViewFactor: CGFloat { return 1.0 - self.topCollectionViewFactor }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Need to manually set frames of collectionViews
-        topCollectionView.translatesAutoresizingMaskIntoConstraints = true
-        topCollectionView.frame = self.view.frame.rect(heightMultipliedByFactor: 0.5)
-        
-        bottomCollectionView.translatesAutoresizingMaskIntoConstraints = true
-        bottomCollectionView.frame = self.view.frame.rect(heightMultipliedByFactor: 0.5, y:topCollectionView.frame.size.height)
-    }
+    let segueIdentifier = "ShowOtherViewController"
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if nextTopFlowLayout == nil {
-            nextTopFlowLayout = singleFlowLayout(topCollectionView)
+    var topCollectionViewDidSelectBlock: DidSelectBlock {
+        return { (layout, indexPath) in
             
-            if let topDelegate = topCollectionView.delegate as? SimpleDelegate {
-                topDelegate.didSelectBlock = { (layout, indexPath) in
-
-                    self.topCollectionView.collectionViewLayout.invalidateLayout()
-                    
-                    let previousFlowLayout = self.topCollectionView.collectionViewLayout
-                    
-                    self.topCollectionView.setCollectionViewLayout(self.nextTopFlowLayout!, animated: true)
-                    self.nextTopFlowLayout = previousFlowLayout
-                }
+            if let viewController = self.storyboard?.instantiateViewControllerWithIdentifier("OtherViewController") {
+                self.navigationController?.pushViewController(viewController, animated: true)
             }
         }
     }
-    
-    func singleFlowLayout(collectionView: UICollectionView) -> UICollectionViewFlowLayout {
-        let padding : CGFloat = 10.0
-        
-        let layout = UICollectionViewFlowLayout()
-        
-        let itemWidth = collectionView.frame.size.width - (2 * padding)
-        let itemHeight = collectionView.frame.size.height - (2 * padding)
-        
-        layout.itemSize = CGSizeMake(itemWidth, itemHeight)
-        layout.minimumInteritemSpacing = padding * 2
-        layout.minimumLineSpacing = padding * 2
-        
-        return layout
+
+    var bottomCollectionViewDidSelectBlock: DidSelectBlock {
+        return { (layout, indexPath) in
+            
+            self.performSegueWithIdentifier(self.segueIdentifier, sender: self)
+        }
     }
-    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // View should reach behind the status bar
+        self.edgesForExtendedLayout = .None
+        
+        // Need to manually set frames of collectionViews
+        let frames = self.collectionViewFrames()
+        topCollectionView.translatesAutoresizingMaskIntoConstraints = true
+        topCollectionView.frame = frames.top
+        
+        bottomCollectionView.translatesAutoresizingMaskIntoConstraints = true
+        bottomCollectionView.frame = frames.bottom
+        
+        if let topDelegate = topCollectionView.delegate as? SimpleDelegate {
+            topDelegate.didSelectBlock = self.topCollectionViewDidSelectBlock
+        }
+        
+        if let bottomDelegate = bottomCollectionView.delegate as? SimpleDelegate {
+            bottomDelegate.didSelectBlock = self.bottomCollectionViewDidSelectBlock
+        }
+    }
+        
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         
-        let isPortrait = size.height > size.width
-        let origin = self.view.frame.origin
-        let newFrame = CGRectMake(origin.x, origin.y, size.width, size.height)
+        let frames = self.collectionViewFrames(size)
         
         coordinator.animateAlongsideTransition({ context in
             
-            self.topCollectionView.frame = isPortrait
-                ? newFrame.rect(heightMultipliedByFactor: 0.5)
-                : newFrame.rect(widthMultipliedByFactor: 0.5)
-            
-            self.bottomCollectionView.frame = isPortrait
-                ? self.view.frame.rect(heightMultipliedByFactor: 0.5, y:self.topCollectionView.frame.size.height)
-                : self.view.frame.rect(widthMultipliedByFactor: 0.5, x:self.topCollectionView.frame.size.width)
+            self.topCollectionView.frame = frames.top
+            self.bottomCollectionView.frame = frames.bottom
             
         }, completion: nil)
     }
+    
+    func collectionViewFrames(size: CGSize? = nil) -> (top:CGRect, bottom:CGRect) {
+        
+        let origin = self.view.frame.origin
+        let width = size?.width ?? self.view.frame.size.width
+        let height = size?.height ?? self.view.frame.size.height
+        
+        let isPortrait = height > width
+        
+        let frame = CGRectMake(origin.x, origin.y, width, height)
+        
+        let top = isPortrait
+            ? frame.rect(heightMultipliedByFactor: self.topCollectionViewFactor)
+            : frame.rect(widthMultipliedByFactor: self.topCollectionViewFactor)
+        
+        let bottom = isPortrait
+            ? frame.rect(heightMultipliedByFactor: self.bottomCollectionViewFactor, y:top.size.height)
+            : frame.rect(widthMultipliedByFactor: self.bottomCollectionViewFactor, x:top.size.width)
+        
+        return (top, bottom)
+    }
 }
-

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3723698A1D6AC682009A7DF5 /* UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372369891D6AC682009A7DF5 /* UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift */; };
+		3723698C1D6B033C009A7DF5 /* NavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3723698B1D6B033C009A7DF5 /* NavigationControllerDelegate.swift */; };
 		37463F691D5B3CEA006D2CD2 /* SimpleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37463F681D5B3CEA006D2CD2 /* SimpleDelegate.swift */; };
 		37463F6D1D5CB315006D2CD2 /* UIColor+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37463F6C1D5CB315006D2CD2 /* UIColor+Random.swift */; };
 		37463F6F1D5CB34F006D2CD2 /* UICollectionView+IndexPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37463F6E1D5CB34F006D2CD2 /* UICollectionView+IndexPaths.swift */; };
@@ -20,10 +22,15 @@
 		37493DE11D544D79008AFC41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37493DDF1D544D79008AFC41 /* LaunchScreen.storyboard */; };
 		37493DE91D559604008AFC41 /* SimpleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37493DE81D559604008AFC41 /* SimpleDataSource.swift */; };
 		3767ED571D696B1E00FC0EF1 /* CGRect+FactorSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3767ED561D696B1E00FC0EF1 /* CGRect+FactorSizes.swift */; };
+		3767ED591D6A8FA800FC0EF1 /* OtherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3767ED581D6A8FA800FC0EF1 /* OtherViewController.swift */; };
+		3767ED5B1D6A8FD000FC0EF1 /* ViewControllerCollectionViewsAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3767ED5A1D6A8FD000FC0EF1 /* ViewControllerCollectionViewsAnimator.swift */; };
+		3767ED611D6A9E5100FC0EF1 /* UICollectionViewFlowLayout+SingleItemFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3767ED601D6A9E5100FC0EF1 /* UICollectionViewFlowLayout+SingleItemFlow.swift */; };
 		37CA89B71D5B388E005B00CE /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CA89B61D5B388E005B00CE /* Cell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		372369891D6AC682009A7DF5 /* UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift"; sourceTree = "<group>"; };
+		3723698B1D6B033C009A7DF5 /* NavigationControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerDelegate.swift; sourceTree = "<group>"; };
 		37463F681D5B3CEA006D2CD2 /* SimpleDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleDelegate.swift; sourceTree = "<group>"; };
 		37463F6C1D5CB315006D2CD2 /* UIColor+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Random.swift"; sourceTree = "<group>"; };
 		37463F6E1D5CB34F006D2CD2 /* UICollectionView+IndexPaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+IndexPaths.swift"; sourceTree = "<group>"; };
@@ -39,6 +46,9 @@
 		37493DE21D544D79008AFC41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		37493DE81D559604008AFC41 /* SimpleDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleDataSource.swift; sourceTree = "<group>"; };
 		3767ED561D696B1E00FC0EF1 /* CGRect+FactorSizes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+FactorSizes.swift"; sourceTree = "<group>"; };
+		3767ED581D6A8FA800FC0EF1 /* OtherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherViewController.swift; sourceTree = "<group>"; };
+		3767ED5A1D6A8FD000FC0EF1 /* ViewControllerCollectionViewsAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerCollectionViewsAnimator.swift; sourceTree = "<group>"; };
+		3767ED601D6A9E5100FC0EF1 /* UICollectionViewFlowLayout+SingleItemFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewFlowLayout+SingleItemFlow.swift"; sourceTree = "<group>"; };
 		37CA89B61D5B388E005B00CE /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,6 +70,8 @@
 				37463F6E1D5CB34F006D2CD2 /* UICollectionView+IndexPaths.swift */,
 				37463F6C1D5CB315006D2CD2 /* UIColor+Random.swift */,
 				3767ED561D696B1E00FC0EF1 /* CGRect+FactorSizes.swift */,
+				3767ED601D6A9E5100FC0EF1 /* UICollectionViewFlowLayout+SingleItemFlow.swift */,
+				372369891D6AC682009A7DF5 /* UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift */,
 			);
 			name = UIKitExtensions;
 			sourceTree = "<group>";
@@ -85,9 +97,12 @@
 			children = (
 				37493DD61D544D79008AFC41 /* AppDelegate.swift */,
 				37493DD81D544D79008AFC41 /* ViewController.swift */,
+				3767ED581D6A8FA800FC0EF1 /* OtherViewController.swift */,
+				3767ED5A1D6A8FD000FC0EF1 /* ViewControllerCollectionViewsAnimator.swift */,
 				37CA89B61D5B388E005B00CE /* Cell.swift */,
 				37493DE81D559604008AFC41 /* SimpleDataSource.swift */,
 				37463F681D5B3CEA006D2CD2 /* SimpleDelegate.swift */,
+				3723698B1D6B033C009A7DF5 /* NavigationControllerDelegate.swift */,
 				3790DA351D633D34005CB37E /* FocusingDelegate */,
 				37463F721D5CB3A7006D2CD2 /* UIKitExtensions */,
 				37493DDA1D544D79008AFC41 /* Main.storyboard */,
@@ -178,8 +193,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3767ED611D6A9E5100FC0EF1 /* UICollectionViewFlowLayout+SingleItemFlow.swift in Sources */,
 				37493DE91D559604008AFC41 /* SimpleDataSource.swift in Sources */,
+				3767ED591D6A8FA800FC0EF1 /* OtherViewController.swift in Sources */,
 				3767ED571D696B1E00FC0EF1 /* CGRect+FactorSizes.swift in Sources */,
+				3723698A1D6AC682009A7DF5 /* UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift in Sources */,
 				37CA89B71D5B388E005B00CE /* Cell.swift in Sources */,
 				37463F691D5B3CEA006D2CD2 /* SimpleDelegate.swift in Sources */,
 				37463F711D5CB38C006D2CD2 /* UICollectionViewFlowLayout+ConvenienceAttributes.swift in Sources */,
@@ -187,7 +205,9 @@
 				37463F6D1D5CB315006D2CD2 /* UIColor+Random.swift in Sources */,
 				37493DD71D544D79008AFC41 /* AppDelegate.swift in Sources */,
 				37463F961D61BC19006D2CD2 /* FocusingDelegate.swift in Sources */,
+				3723698C1D6B033C009A7DF5 /* NavigationControllerDelegate.swift in Sources */,
 				37463F761D616343006D2CD2 /* UICollectionViewDelegateFlowLayoutFocusing.swift in Sources */,
+				3767ED5B1D6A8FD000FC0EF1 /* ViewControllerCollectionViewsAnimator.swift in Sources */,
 				37463F6F1D5CB34F006D2CD2 /* UICollectionView+IndexPaths.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +324,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CollectionViewTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.KentHumphries.CollectionViewTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -315,6 +336,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CollectionViewTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.KentHumphries.CollectionViewTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";

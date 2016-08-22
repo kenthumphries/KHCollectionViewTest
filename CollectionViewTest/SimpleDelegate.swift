@@ -9,10 +9,12 @@
 import Foundation
 import UIKit
 
+typealias DidSelectBlock = (collectionViewFlowLayout: UICollectionViewFlowLayout, indexPath: NSIndexPath) -> Void
+
 class SimpleDelegate: FocusingDelegate // Ensure that the CollectionView is Focusing
 {
     
-    var didSelectBlock : (collectionViewFlowLayout: UICollectionViewFlowLayout, indexPath: NSIndexPath) -> () = { (layout, indexPath) in
+    var didSelectBlock : DidSelectBlock = { (layout, indexPath) in
         // Do nothing by default
     }
 }
