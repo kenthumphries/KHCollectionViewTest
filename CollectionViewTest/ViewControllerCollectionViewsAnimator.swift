@@ -18,12 +18,12 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         
         // Ensure that we're transitioning in a valid view/window with ViewControllers
-        guard let inView = transitionContext.containerView(),
-            let window = inView.window,
+        guard let container = transitionContext.containerView(),
+            let window = container.window,
             let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as? ViewController,
-            let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey),
+            let fromView = fromVC.view, //transitionContext.viewForKey(UITransitionContextFromViewKey),
             let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? ViewController,
-            let toView = transitionContext.viewForKey(UITransitionContextToViewKey) else {
+            let toView = toVC.view else { //transitionContext.viewForKey(UITransitionContextToViewKey) else {
                 return
         }
         
@@ -42,7 +42,7 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
         // Copy over collectionView delegates to retain consistent focusing behaviour
         self.configureFocusingCollectionView(toCollectionViewTop, withFocusedCollectionView: fromCollectionViewTop, didSelectBlock: toVC.topCollectionViewDidSelectBlock)
         self.configureFocusingCollectionView(toCollectionViewBottom, withFocusedCollectionView: fromCollectionViewBottom, didSelectBlock: toVC.bottomCollectionViewDidSelectBlock)
-        
+
         let finalViewFrame = transitionContext.finalFrameForViewController(toVC)
         
         let initialRectTop = window.convertRect(fromCollectionViewTop.frame, fromView: fromCollectionViewTop.superview)
@@ -53,7 +53,7 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
         let finalRectBottom = toVC.collectionViewFrames(finalViewFrame.size).bottom
         let bottomCollectionViewAnimations = self.animateCollectionView((fromCollectionViewBottom, toCollectionViewBottom), frame:(initialRectBottom, finalRectBottom))
         
-        inView.insertSubview(toView, aboveSubview: fromView)
+        container.addSubview(toView)
         
         UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: {
             
@@ -65,8 +65,8 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
             }
             
         }) { (finished) in
-            transitionContext.completeTransition(transitionContext.transitionWasCancelled())
-            UIApplication.sharedApplication().keyWindow!.addSubview(toVC.view)
+            fromView.removeFromSuperview()
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
         }
     }
     
