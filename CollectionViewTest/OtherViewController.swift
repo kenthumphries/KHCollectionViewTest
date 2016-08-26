@@ -21,7 +21,7 @@ class OtherViewController: ViewController {
 
     override var bottomCollectionViewDidSelectBlock: DidSelectBlock {
         return { (layout, indexPath) in
-            self.navigationController!.popViewControllerAnimated(true)
+            self.performSegueWithIdentifier("Unwind", sender: nil)
         }
     }
 
