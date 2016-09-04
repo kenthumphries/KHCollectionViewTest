@@ -147,6 +147,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="Gx5-kF-BFa" id="FKc-iD-9Ng"/>
+                                    <outlet property="delegate" destination="fm8-zo-6C8" id="vnt-kd-slV"/>
                                 </connections>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="meJ-gF-Q7w">
@@ -171,6 +172,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="Gx5-kF-BFa" id="Wxz-gk-lee"/>
+                                    <outlet property="delegate" destination="xdt-OK-Kye" id="luD-U1-iif"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -196,6 +198,8 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gqX-lm-T9R" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="B9t-eI-SZT" userLabel="Exit" sceneMemberID="exit"/>
                 <customObject id="Gx5-kF-BFa" customClass="SimpleDataSource" customModule="CollectionViewTest" customModuleProvider="target"/>
+                <customObject id="fm8-zo-6C8" userLabel="Top Delegate" customClass="SimpleDelegate" customModule="CollectionViewTest" customModuleProvider="target"/>
+                <customObject id="xdt-OK-Kye" userLabel="Bottom Delegate" customClass="SimpleDelegate" customModule="CollectionViewTest" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="823" y="206"/>
         </scene>

@@ -21,6 +21,10 @@ class FocusingDelegate: NSObject, UICollectionViewDelegateFlowLayoutFocusing // 
 // MARK: Call UICollectionViewDelegateFlowLayoutFocusing methods on scrolling and external contentOffset change
 extension FocusingDelegate {
     
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        self.collectionViewDidEndScrolling(scrollView)
+    }
+    
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             self.collectionViewDidEndScrolling(scrollView)

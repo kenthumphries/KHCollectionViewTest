@@ -30,7 +30,7 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
                                    animations: {
                                     subviewActions?.animations()
         }) { (finished) in
-            container.addSubview(toView)
+            container.insertSubview(toView, aboveSubview: fromView)
             fromView.removeFromSuperview()
             
             subviewActions?.completion()
@@ -55,16 +55,10 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
                 return nil
         }
         
-        let topCollectionViews = (fromCollectionViewTop, toCollectionViewTop)
-        self.configureFocusingCollectionView(topCollectionViews,
-                                             didSelectBlock: toVC.topCollectionViewDidSelectBlock)
-        let topCollectionViewAsynchActions = self.animateCollectionView(topCollectionViews,
+        let topCollectionViewAsynchActions = self.animateCollectionView((fromCollectionViewTop, toCollectionViewTop),
                                                                         containerView: container)
         
-        let bottomCollectionViews = (fromCollectionViewBottom, toCollectionViewBottom)
-        self.configureFocusingCollectionView(bottomCollectionViews,
-                                             didSelectBlock: toVC.bottomCollectionViewDidSelectBlock)
-        let bottomCollectionViewAsynchActions = self.animateCollectionView(bottomCollectionViews,
+        let bottomCollectionViewAsynchActions = self.animateCollectionView((fromCollectionViewBottom, toCollectionViewBottom),
                                                                            containerView: container)
         
         let asyncAnimations = {
@@ -78,31 +72,28 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
         return (asyncAnimations, asyncCompletion)
     }
     
-    func configureFocusingCollectionView(collectionView:(from:UICollectionView, to:UICollectionView), didSelectBlock:DidSelectBlock) {
-        if let focusingDelegate = collectionView.from.delegate as? SimpleDelegate {
-            collectionView.to.delegate = focusingDelegate
-            if let selectedIndexPaths = collectionView.from.indexPathsForSelectedItems() {
-                for indexPath in selectedIndexPaths {
-                    collectionView.to.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .None)
-                }
-            }
-            focusingDelegate.didSelectBlock = didSelectBlock
-        }
-    }
-    
     func animateCollectionView(collectionView:(from:UICollectionView, to:UICollectionView),
                                containerView container:UIView) -> (animations:(() -> Void), completion:(() -> Void))? {
         
         let initialRect = container.convertRect(collectionView.from.frame, fromView: collectionView.from.superview)
         let finalRect = container.convertRect(collectionView.to.frame, fromView: collectionView.to.superview)
         
-        return self.animateFromCollectionView(collectionView, frame:(initialRect, finalRect), containerView:container)
+        self.selectItemsFromCollectionView(collectionView)
+
+        return self.animateFromCollectionView(collectionView, frame:(initialRect, finalRect))
         
     }
     
+    func selectItemsFromCollectionView(collectionView:(from:UICollectionView, to:UICollectionView)) {
+        if let selectedIndexPaths = collectionView.from.indexPathsForSelectedItems() {
+            for indexPath in selectedIndexPaths {
+                collectionView.to.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+            }
+        }
+    }
+    
     func animateFromCollectionView(collectionView: (from:UICollectionView, to:UICollectionView),
-                                   frame: (initial:CGRect, final:CGRect),
-                                   containerView container:UIView) -> (animations:(() -> Void), completion:(() -> Void))? {
+                                   frame: (initial:CGRect, final:CGRect)) -> (animations:(() -> Void), completion:(() -> Void))? {
         
         // Ensure that we have valid layouts in collectionViews
         guard let fromLayout = collectionView.from.collectionViewLayout as? UICollectionViewFlowLayout,
@@ -130,15 +121,17 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
         }
         
         let completion = {
+            let finalContentOffset = fromCollectionView.contentOffset
             fromCollectionView.frame = frame.initial
             fromCollectionView.contentInset = originalContentInset
             fromCollectionView.setCollectionViewLayout(fromLayout, animated: false)
+            collectionView.to.setContentOffset(finalContentOffset, animated: false)
         }
         
         return (animations, completion)
     }
-    
-    func animateToCollectionView(collectionView: (from:UICollectionView, to:UICollectionView), frame: (initial:CGRect, final:CGRect)) -> (animations:(() -> Void), completion:(() -> Void)?)? {
+        
+    func animateToCollectionView(collectionView: (from:UICollectionView, to:UICollectionView), frame: (initial:CGRect, final:CGRect)) -> (animations:(() -> Void), completion:(() -> Void))? {
         
         // Ensure that we have valid layouts in collectionViews
         guard let fromLayout = collectionView.from.collectionViewLayout as? UICollectionViewFlowLayout,
@@ -152,14 +145,13 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
         let fromLayoutCopy = fromLayout.collectionViewFlowLayoutCopy()
         fromCollectionView.setCollectionViewLayout(fromLayoutCopy, animated: false)
         
-        var contentInset = toCollectionView.contentInset
-        let oldBottomInset = contentInset.bottom
-        contentInset.bottom = CGRectGetHeight(frame.final) - (toLayout.itemSize.height + toLayout.sectionInset.bottom + toLayout.sectionInset.top)
-        toCollectionView.contentInset = contentInset
+        let originalContentInset = toCollectionView.contentInset
+        var adjustedContentInset = originalContentInset
+        adjustedContentInset.bottom = CGRectGetHeight(frame.final) - (toLayout.itemSize.height + toLayout.sectionInset.bottom + toLayout.sectionInset.top)
+        toCollectionView.contentInset = adjustedContentInset
         
         toCollectionView.setCollectionViewLayout(fromLayout, animated: false)
         toCollectionView.frame = frame.initial
-        toCollectionView.alpha = 0.95
         
         let animations =  {
             toCollectionView.frame = frame.final
@@ -169,15 +161,11 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
                 toCollectionView.setCollectionViewLayout(toLayout, animated: false)
                 
                 }, completion: { (finished) in
-                    toCollectionView.contentInset = UIEdgeInsetsMake(
-                        contentInset.top,
-                        contentInset.left,
-                        oldBottomInset,
-                        contentInset.right)
+                    toCollectionView.contentInset = originalContentInset
             })
         }
         
-        return (animations, nil)
+        return (animations, {})
     }
 
 }
