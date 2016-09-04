@@ -61,14 +61,14 @@ extension UICollectionViewDelegateFlowLayoutFocusing {
     
     func targetContentOffset(collectionView: UICollectionView, proposedContentOffset: CGPoint) -> CGPoint {
         guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
-            focusedContentOffset = self.focussedContentOffset(collectionView, flowLayout: flowLayout) else {
+            focusedContentOffset = self.focusedContentOffset(collectionView, flowLayout: flowLayout) else {
                 return proposedContentOffset
         }
         
         return focusedContentOffset
     }
     
-    func focussedContentOffset(collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> CGPoint? {
+    func focusedContentOffset(collectionView: UICollectionView, flowLayout: UICollectionViewFlowLayout) -> CGPoint? {
         
         let focusedIndexPath = self.focusedIndexPath(collectionView)
         
@@ -77,8 +77,14 @@ extension UICollectionViewDelegateFlowLayoutFocusing {
         }
         
         let spacing = flowLayout.minimumLineSpacing * 0.5
-        let originX = max(0, frame.origin.x - spacing)
-        let originY = max(0, frame.origin.y - spacing)
-        return CGPointMake(originX, originY)
+        let margin: (x: CGFloat, y: CGFloat) = flowLayout.scrollDirection == .Horizontal ? (spacing, 0.0) : (0.0, spacing)
+        let originX = max(0, frame.origin.x - margin.x)
+        let originY = max(0, frame.origin.y - margin.y)
+        
+        let maxContentOffsetX = collectionView.contentSize.width  - collectionView.frame.size.width
+        let maxContentOffsetY = collectionView.contentSize.height - collectionView.frame.size.height
+
+        let focusedContentOffset = CGPointMake(min(originX, maxContentOffsetX), min(originY, maxContentOffsetY))
+        return focusedContentOffset
     }
 }

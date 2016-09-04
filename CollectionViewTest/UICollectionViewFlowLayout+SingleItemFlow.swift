@@ -20,6 +20,7 @@ extension UICollectionViewFlowLayout {
         self.itemSize = CGSizeMake(itemWidth, itemHeight)
         self.minimumInteritemSpacing = padding * 2
         self.minimumLineSpacing = padding * 2
+        self.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             self.scrollDirection = flowLayout.scrollDirection

@@ -29,9 +29,11 @@ class OtherViewController: ViewController {
         super.viewDidLoad()
         
         let topFlowLayout = UICollectionViewFlowLayout().configureForSingleItemFlow(inCollectionView: self.topCollectionView)
+        topFlowLayout.scrollDirection = .Horizontal
         self.topCollectionView.collectionViewLayout = topFlowLayout
 
         let bottomFlowLayout = UICollectionViewFlowLayout().configureForSingleItemFlow(inCollectionView: self.bottomCollectionView)
+        bottomFlowLayout.scrollDirection = .Vertical
         self.bottomCollectionView.collectionViewLayout = bottomFlowLayout
     }
 }
