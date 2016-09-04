@@ -55,11 +55,6 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
                 return nil
         }
         
-
-        // Copy selection from existing collectionView to new collectionView
-        toCollectionViewTop.synchroniseSelectedItems(fromCollectionView: fromCollectionViewTop)
-        toCollectionViewBottom.synchroniseSelectedItems(fromCollectionView: fromCollectionViewBottom)
-        
         // Get animation & completion blocks for animating each collectionView
         let topCollectionViewAsynchActions = self.animateCollectionView((fromCollectionViewTop, toCollectionViewTop),
                                                                         containerView: container)

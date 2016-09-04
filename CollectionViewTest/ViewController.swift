@@ -18,6 +18,9 @@ class ViewController: UIViewController {
     
     let segueIdentifier = "ShowOtherViewController"
     
+    var topPreselectedItems : [NSIndexPath]?
+    var bottomPreselectedItems : [NSIndexPath]?
+    
     var topCollectionViewDidSelectBlock: DidSelectBlock {
         return { (layout, indexPath) in
 
@@ -38,23 +41,34 @@ class ViewController: UIViewController {
         // View should reach behind the status bar
         self.edgesForExtendedLayout = .None
         
-        // Need to manually set frames of collectionViews
         let frames = self.collectionViewFrames()
-        topCollectionView.translatesAutoresizingMaskIntoConstraints = true
-        topCollectionView.frame = frames.top
+        self.configureCollectionView(self.topCollectionView,
+                                     frame: frames.top,
+                                     didSelectBlock: self.topCollectionViewDidSelectBlock,
+                                     preselectedItems: self.topPreselectedItems)
+
+        self.configureCollectionView(self.bottomCollectionView,
+                                     frame: frames.bottom,
+                                     didSelectBlock: self.bottomCollectionViewDidSelectBlock,
+                                     preselectedItems: self.bottomPreselectedItems)
+    }
+    
+    func configureCollectionView(collectionView:UICollectionView, frame:CGRect, didSelectBlock:DidSelectBlock, preselectedItems:[NSIndexPath]?) {
+        collectionView.translatesAutoresizingMaskIntoConstraints = true
+        collectionView.frame = frame
         
-        bottomCollectionView.translatesAutoresizingMaskIntoConstraints = true
-        bottomCollectionView.frame = frames.bottom
-        
-        if let topDelegate = topCollectionView.delegate as? SimpleDelegate {
-            topDelegate.didSelectBlock = self.topCollectionViewDidSelectBlock
+        if let delegate = collectionView.delegate as? SimpleDelegate {
+            delegate.didSelectBlock = didSelectBlock
         }
         
-        if let bottomDelegate = bottomCollectionView.delegate as? SimpleDelegate {
-            bottomDelegate.didSelectBlock = self.bottomCollectionViewDidSelectBlock
+        // Ensure preselectedItems are selected
+        if let preselectedItems = preselectedItems {
+            for indexPath in preselectedItems {
+                collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+            }
         }
     }
-        
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         
         let frames = self.collectionViewFrames(size)
@@ -86,6 +100,15 @@ class ViewController: UIViewController {
             : frame.rect(widthMultipliedByFactor: self.bottomCollectionViewFactor, x:top.size.width)
         
         return (top, bottom)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        
+        if let destinationVC = segue.destinationViewController as? ViewController where segue.identifier == self.segueIdentifier {
+            destinationVC.topPreselectedItems = self.topCollectionView.indexPathsForSelectedItems()
+            destinationVC.bottomPreselectedItems = self.bottomCollectionView.indexPathsForSelectedItems()
+        }
     }
     
     @IBAction func unwindToViewController(segue:UIStoryboardSegue) {
