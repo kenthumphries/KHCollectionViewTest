@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class FocusingDelegate: NSObject, UICollectionViewDelegateFlowLayoutFocusing // Ensure that the CollectionView is Focusing
+class FocusingDelegate: NSObject, UICollectionViewDelegateFlowLayoutFocusing, UICollectionViewDelegate // Ensure that the CollectionView is Focusing
 {
     var lastViewedIndexPath: NSIndexPath
     

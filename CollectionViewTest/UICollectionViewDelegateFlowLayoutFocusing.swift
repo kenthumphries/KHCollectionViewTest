@@ -13,7 +13,7 @@ func >(lhs: CGPoint, rhs: CGPoint) -> Bool {
     return lhs.x > rhs.x && lhs.y > rhs.y
 }
 
-public protocol UICollectionViewDelegateFlowLayoutFocusing: UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+public protocol UICollectionViewDelegateFlowLayoutFocusing: NSObjectProtocol {
     
     var lastViewedIndexPath: NSIndexPath { get set }
     

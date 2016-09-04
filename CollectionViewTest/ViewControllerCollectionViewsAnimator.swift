@@ -55,6 +55,12 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
                 return nil
         }
         
+
+        // Copy selection from existing collectionView to new collectionView
+        toCollectionViewTop.synchroniseSelectedItems(fromCollectionView: fromCollectionViewTop)
+        toCollectionViewBottom.synchroniseSelectedItems(fromCollectionView: fromCollectionViewBottom)
+        
+        // Get animation & completion blocks for animating each collectionView
         let topCollectionViewAsynchActions = self.animateCollectionView((fromCollectionViewTop, toCollectionViewTop),
                                                                         containerView: container)
         
@@ -78,18 +84,8 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
         let initialRect = container.convertRect(collectionView.from.frame, fromView: collectionView.from.superview)
         let finalRect = container.convertRect(collectionView.to.frame, fromView: collectionView.to.superview)
         
-        self.selectItemsFromCollectionView(collectionView)
-
         return self.animateFromCollectionView(collectionView, frame:(initialRect, finalRect))
         
-    }
-    
-    func selectItemsFromCollectionView(collectionView:(from:UICollectionView, to:UICollectionView)) {
-        if let selectedIndexPaths = collectionView.from.indexPathsForSelectedItems() {
-            for indexPath in selectedIndexPaths {
-                collectionView.to.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .None)
-            }
-        }
     }
     
     func animateFromCollectionView(collectionView: (from:UICollectionView, to:UICollectionView),
