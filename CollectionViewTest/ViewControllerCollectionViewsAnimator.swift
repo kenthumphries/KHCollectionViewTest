@@ -165,6 +165,7 @@ class ViewControllerCollectionViewsAnimator : NSObject, UIViewControllerAnimated
             
             return (animations, completion)
         }
+        return nil
     }
         
 //    func animateToCollectionView(collectionView: (from:UICollectionView, to:UICollectionView), frame: (initial:CGRect, final:CGRect)) -> (animations:(() -> Void), completion:(() -> Void))? {
