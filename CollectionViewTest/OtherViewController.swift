@@ -13,17 +13,7 @@ class OtherViewController: ViewController {
     
     override var topCollectionViewFactor: CGFloat { return 0.666 }
     
-    override var topCollectionViewDidSelectBlock: DidSelectBlock {
-        return { (layout, indexPath) in
-            self.performSegueWithIdentifier("Unwind", sender: nil)
-        }
-    }
-
-    override var bottomCollectionViewDidSelectBlock: DidSelectBlock {
-        return { (layout, indexPath) in
-            self.performSegueWithIdentifier("Unwind", sender: nil)
-        }
-    }
+    override var segueIdentifier: String { return "Unwind" }
 
     override func viewDidLoad() {
         super.viewDidLoad()

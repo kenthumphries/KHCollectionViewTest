@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias AnimationCenters = (top: CGPoint?, bottom: CGPoint?)
+
 class ViewController: UIViewController {
     
     @IBOutlet var topCollectionView: UICollectionView!
@@ -16,13 +18,20 @@ class ViewController: UIViewController {
     var topCollectionViewFactor: CGFloat { return 0.5 }
     var bottomCollectionViewFactor: CGFloat { return 1.0 - self.topCollectionViewFactor }
     
-    let segueIdentifier = "ShowOtherViewController"
+    var segueIdentifier: String { return "ShowOtherViewController" }
     
     var topPreselectedItems : [NSIndexPath]?
     var bottomPreselectedItems : [NSIndexPath]?
     
+    var animationCenters : AnimationCenters = (nil, nil)
+    
     var topCollectionViewDidSelectBlock: DidSelectBlock {
         return { (layout, indexPath) in
+
+            if let itemCenter = layout.centerForItemAtIndexPath(indexPath) {
+                let animationCenter = itemCenter.subtracting(self.topCollectionView.contentOffset)
+                self.animationCenters = (animationCenter, nil)
+            }
 
             self.performSegueWithIdentifier(self.segueIdentifier, sender: self)
         }
@@ -30,6 +39,11 @@ class ViewController: UIViewController {
 
     var bottomCollectionViewDidSelectBlock: DidSelectBlock {
         return { (layout, indexPath) in
+            
+            if let itemCenter = layout.centerForItemAtIndexPath(indexPath) {
+                let animationCenter = itemCenter.subtracting(self.bottomCollectionView.contentOffset)
+                self.animationCenters = (nil, animationCenter)
+            }
             
             self.performSegueWithIdentifier(self.segueIdentifier, sender: self)
         }
@@ -106,8 +120,13 @@ class ViewController: UIViewController {
         super.prepareForSegue(segue, sender: sender)
         
         if let destinationVC = segue.destinationViewController as? ViewController where segue.identifier == self.segueIdentifier {
-            destinationVC.topPreselectedItems = self.topCollectionView.indexPathsForSelectedItems()
-            destinationVC.bottomPreselectedItems = self.bottomCollectionView.indexPathsForSelectedItems()
+            if let topCollectionView = destinationVC.topCollectionView, bottomCollectionView = destinationVC.bottomCollectionView {
+                topCollectionView.matchSelectedItemsFromCollectionView(self.topCollectionView)
+                bottomCollectionView.matchSelectedItemsFromCollectionView(self.bottomCollectionView)
+            } else {
+                destinationVC.topPreselectedItems = self.topCollectionView.indexPathsForSelectedItems()
+                destinationVC.bottomPreselectedItems = self.bottomCollectionView.indexPathsForSelectedItems()
+            }
         }
     }
     

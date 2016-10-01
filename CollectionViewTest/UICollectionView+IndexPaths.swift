@@ -27,5 +27,31 @@ extension UICollectionView {
         }
         return nil
     }
+    
+    func matchSelectedItemsFromCollectionView(collectionView:UICollectionView) {
+        
+        var newIndexPaths = collectionView.indexPathsForSelectedItems()
+        if newIndexPaths == nil {
+            newIndexPaths = []
+        }
+        
+        if let newIndexPaths = newIndexPaths {
+            self.selectItemsAtIndexPaths(newIndexPaths)
+        }
+    }
+    
+    func selectItemsAtIndexPaths(newIndexPaths:[NSIndexPath]) {
+        
+        if let currentIndexPaths = self.indexPathsForSelectedItems() {
+            for currentIndexPath in currentIndexPaths {
+                self.deselectItemAtIndexPath(currentIndexPath, animated: false)
+            }
+        }
+        
+        for newIndexPath in newIndexPaths {
+            self.selectItemAtIndexPath(newIndexPath, animated: false, scrollPosition: .None)
+        }
+    }
+    
 }
 

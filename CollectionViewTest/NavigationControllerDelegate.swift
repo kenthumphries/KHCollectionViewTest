@@ -12,6 +12,11 @@ import UIKit
 class NavigationControllerdelegate: NSObject, UINavigationControllerDelegate {
     
     func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return ViewControllerCollectionViewsAnimator()
+        
+        if let fromVC = fromVC as? ViewController {
+            return ViewControllerCollectionViewsAnimator(animationCenters: fromVC.animationCenters)
+        }
+
+        return nil
     }
 }

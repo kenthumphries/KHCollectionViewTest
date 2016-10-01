@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3720BDAD1D7FF626006DD12E /* CGPoint+Addition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3720BDAC1D7FF626006DD12E /* CGPoint+Addition.swift */; };
 		3723698A1D6AC682009A7DF5 /* UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372369891D6AC682009A7DF5 /* UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift */; };
 		3723698C1D6B033C009A7DF5 /* NavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3723698B1D6B033C009A7DF5 /* NavigationControllerDelegate.swift */; };
 		37463F691D5B3CEA006D2CD2 /* SimpleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37463F681D5B3CEA006D2CD2 /* SimpleDelegate.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3720BDAC1D7FF626006DD12E /* CGPoint+Addition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Addition.swift"; sourceTree = "<group>"; };
 		372369891D6AC682009A7DF5 /* UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift"; sourceTree = "<group>"; };
 		3723698B1D6B033C009A7DF5 /* NavigationControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerDelegate.swift; sourceTree = "<group>"; };
 		37463F681D5B3CEA006D2CD2 /* SimpleDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				37463F6E1D5CB34F006D2CD2 /* UICollectionView+IndexPaths.swift */,
 				37463F6C1D5CB315006D2CD2 /* UIColor+Random.swift */,
 				3767ED561D696B1E00FC0EF1 /* CGRect+FactorSizes.swift */,
+				3720BDAC1D7FF626006DD12E /* CGPoint+Addition.swift */,
 				3767ED601D6A9E5100FC0EF1 /* UICollectionViewFlowLayout+SingleItemFlow.swift */,
 				372369891D6AC682009A7DF5 /* UICollectionViewFlowLayout+collectionViewFlowLayoutCopy.swift */,
 			);
@@ -154,6 +157,7 @@
 				TargetAttributes = {
 					37493DD21D544D79008AFC41 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -203,6 +207,7 @@
 				37463F711D5CB38C006D2CD2 /* UICollectionViewFlowLayout+ConvenienceAttributes.swift in Sources */,
 				37493DD91D544D79008AFC41 /* ViewController.swift in Sources */,
 				37463F6D1D5CB315006D2CD2 /* UIColor+Random.swift in Sources */,
+				3720BDAD1D7FF626006DD12E /* CGPoint+Addition.swift in Sources */,
 				37493DD71D544D79008AFC41 /* AppDelegate.swift in Sources */,
 				37463F961D61BC19006D2CD2 /* FocusingDelegate.swift in Sources */,
 				3723698C1D6B033C009A7DF5 /* NavigationControllerDelegate.swift in Sources */,
@@ -328,6 +333,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.KentHumphries.CollectionViewTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -340,6 +346,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.KentHumphries.CollectionViewTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
